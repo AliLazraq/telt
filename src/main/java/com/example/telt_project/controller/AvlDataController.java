@@ -1,49 +1,50 @@
 package com.example.telt_project.controller;
 
-import com.example.telt_project.model.VehicleData;
-import com.example.telt_project.service.VehicleDataService;
+import com.example.telt_project.model.avlData;
+import com.example.telt_project.service.TeltonikaDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Map;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/avldata")
-public class VehicleDataController {
-    private final VehicleDataService vehicleDataService;
+public class AvlDataController {
+
+    private final TeltonikaDataService vehicleDataService;
 
     @Autowired
-    public VehicleDataController(VehicleDataService vehicleDataService) {
+    public AvlDataController(TeltonikaDataService vehicleDataService) {
         this.vehicleDataService = vehicleDataService;
     }
 
-    // Get all data
+    // Get all AVL data
     @GetMapping
-    public List<VehicleData> getAllData() {
-        return vehicleDataService.getAllAvlData();  // Fetches all records from the avl_data table
+    public List<avlData> getAllAvlData() {
+        return vehicleDataService.getAllAvlData();
     }
 
-    // Get data by ID
+    // Get AVL data by ID
     @GetMapping("/{id}")
-    public ResponseEntity<VehicleData> getDataById(@PathVariable Long id) {
-        Optional<VehicleData> data = vehicleDataService.getDataById(id);
+    public ResponseEntity<avlData> getAvlDataById(@PathVariable Long id) {
+        Optional<avlData> data = vehicleDataService.getDataById(id);
         return data.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Save new data
+    // Save new AVL data
     @PostMapping
-    public VehicleData saveData(@RequestBody VehicleData vehicleData) {
+    public avlData saveAvlData(@RequestBody avlData vehicleData) {
         return vehicleDataService.saveData(vehicleData);
     }
 
-    // Update existing data
+    // Update existing AVL data
     @PutMapping("/{id}")
-    public ResponseEntity<VehicleData> updateData(@PathVariable Long id, @RequestBody VehicleData vehicleData) {
-        Optional<VehicleData> existingData = vehicleDataService.getDataById(id);
+    public ResponseEntity<avlData> updateAvlData(@PathVariable Long id, @RequestBody avlData vehicleData) {
+        Optional<avlData> existingData = vehicleDataService.getDataById(id);
         if (existingData.isPresent()) {
-            VehicleData updatedData = existingData.get();
+            avlData updatedData = existingData.get();
             updatedData.setLatitude(vehicleData.getLatitude());
             updatedData.setLongitude(vehicleData.getLongitude());
             updatedData.setSpeed(vehicleData.getSpeed());
@@ -61,14 +62,19 @@ public class VehicleDataController {
         }
     }
 
-    // Delete data by ID
+    // Delete AVL data by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteData(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAvlData(@PathVariable Long id) {
         if (vehicleDataService.getDataById(id).isPresent()) {
             vehicleDataService.deleteData(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/gps-data")
+    public List<Map<String, Object>> getGpsData() {
+        return vehicleDataService.getGpsData();
     }
 }

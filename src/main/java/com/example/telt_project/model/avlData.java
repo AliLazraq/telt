@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "avl_data")  // match the table name
-public class VehicleData {
+public class avlData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
