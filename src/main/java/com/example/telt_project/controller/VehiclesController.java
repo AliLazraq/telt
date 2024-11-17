@@ -63,4 +63,11 @@ public class VehiclesController {
             vehicleDataService.deleteVehicle(id);
             return ResponseEntity.noContent().build();
         }
+
+        // Get vehicle count
+        @GetMapping("/count")
+        public ResponseEntity<Long> getVehicleCount() {
+            long count = vehicleDataService.getVehicleCount();
+            return ResponseEntity.ok(count);
+    }
 }
