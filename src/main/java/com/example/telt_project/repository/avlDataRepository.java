@@ -13,6 +13,8 @@ public interface avlDataRepository extends JpaRepository<avlData, Long> {
     List<Object[]> findGpsData();
 
     avlData findTopByDeviceIdOrderByTimestampDesc(Long deviceId);
+    
+    List<avlData>  findByDeviceId(Long deviceId);
 
     @Query(value = """
         SELECT 

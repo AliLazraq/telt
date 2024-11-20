@@ -1,5 +1,6 @@
 package com.example.telt_project.controller;
 
+import com.example.telt_project.DTO.FuelLogWithVehicleDto;
 import com.example.telt_project.model.FuelLog;
 import com.example.telt_project.service.TeltonikaDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class FuelLogController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+
+
     @PutMapping("/{fuelLogId}")
     public ResponseEntity<FuelLog> updateFuelLog(@PathVariable Long fuelLogId, @RequestBody FuelLog fuelLog) {
         FuelLog updatedLog = fuelLogService.updateFuelLog(fuelLogId, fuelLog);
@@ -61,5 +64,11 @@ public class FuelLogController {
     public ResponseEntity<FuelLog> getLatestOdometerByVehicleId(@PathVariable Long vehicleId) {
         FuelLog fuelLog = fuelLogService.getLatestOdometerByVehicleId(vehicleId);
         return ResponseEntity.ok(fuelLog);
+    }
+
+    @GetMapping("/fuel-logs-with-vehicle")
+    public List<FuelLogWithVehicleDto> getFuelLogsWithVehicle() {
+        // Fetch all fuel logs joined with vehicle information
+        return fuelLogService.getAllFuelLogsWithVehicle();
     }
 }

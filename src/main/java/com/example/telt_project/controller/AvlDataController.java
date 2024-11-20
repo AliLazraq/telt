@@ -77,4 +77,11 @@ public class AvlDataController {
     public List<Map<String, Object>> getGpsData() {
         return vehicleDataService.getGpsData();
     }
+    
+    // get avl data by device id
+    @GetMapping("/device/{deviceId}")
+    public ResponseEntity< List<avlData>> getAvlDataByDeviceId(@PathVariable Long deviceId) {
+        List<avlData> data = vehicleDataService.getAvlDataByDeviceId(deviceId);
+        return ResponseEntity.ok(data);
+    }
 }
