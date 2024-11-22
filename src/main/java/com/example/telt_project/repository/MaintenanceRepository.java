@@ -13,6 +13,9 @@ import java.util.List;
 public interface MaintenanceRepository extends JpaRepository<Maintenance, Long> {
     List<Maintenance> findByVehicleId(Long vehicleId);
 
+    // delete all maintenance by vehicle id
+    void deleteByVehicleId(Long vehicleId);
+
 //     @Query("SELECT new com.example.telt_project.DTO.MaintenanceWithOdometerDTO( " +
 //        "m.id, m.operationType, m.vehicleId, MAX(fl.odometer), m.price, m.alert) " +
 //        "FROM Maintenance m " +

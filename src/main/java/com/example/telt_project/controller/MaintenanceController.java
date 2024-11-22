@@ -45,6 +45,12 @@ public class MaintenanceController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/delete-all/{vehicleId}")
+    public ResponseEntity<Void> deleteAllMaintenance(@PathVariable Long vehicleId) {
+        maintenanceService.deleteAllMaintenance(vehicleId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/alerts/{vehicleId}")
     public ResponseEntity<Map<String, Object>> getMaintenanceAlertsWithOdometer(@PathVariable Long vehicleId) {
         Map<String, Object> response = maintenanceService.getMaintenanceAlertsWithOdometer(vehicleId);

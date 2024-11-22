@@ -63,4 +63,15 @@ public class TrackerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    // Update tracker by id
+    @PutMapping("/{id}")
+    public ResponseEntity<Tracker> updateTracker(@PathVariable Long id, @RequestBody Tracker tracker) {
+        try {
+            Tracker updatedTracker = trackerService.updateTracker(id, tracker);
+            return ResponseEntity.ok(updatedTracker);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

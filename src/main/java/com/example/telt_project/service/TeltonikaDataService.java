@@ -473,4 +473,17 @@ public class TeltonikaDataService {
     public List<Tracker> getTrackerByVehicleId(Long vehicleId) {
         return TrackerRepository.findByVehicleId(vehicleId);
     }
+
+    public void deleteAllMaintenance(Long vehicleId) {
+        maintenanceRepository.deleteByVehicleId(vehicleId);
+    }
+
+    public Tracker updateTracker(Long id, Tracker tracker) {
+        return TrackerRepository.findById(id).map(trackerData -> {
+            trackerData.setOperationType(tracker.getOperationType());
+            trackerData.setVehicleId(tracker.getVehicleId());
+            trackerData.setValue(tracker.getValue());
+            return TrackerRepository.save(trackerData);
+        }).orElseThrow(() -> new RuntimeException("Tracker not found with id " + id));
+    }
 }

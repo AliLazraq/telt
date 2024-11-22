@@ -45,7 +45,6 @@ public class FuelLogController {
     }
 
 
-
     @PutMapping("/{fuelLogId}")
     public ResponseEntity<FuelLog> updateFuelLog(@PathVariable Long fuelLogId, @RequestBody FuelLog fuelLog) {
         FuelLog updatedLog = fuelLogService.updateFuelLog(fuelLogId, fuelLog);
@@ -70,5 +69,11 @@ public class FuelLogController {
     public List<FuelLogWithVehicleDto> getFuelLogsWithVehicle() {
         // Fetch all fuel logs joined with vehicle information
         return fuelLogService.getAllFuelLogsWithVehicle();
+    }
+
+    @DeleteMapping("/{fuelLogId}")
+    public ResponseEntity<Void> deleteFuelLog(@PathVariable Long fuelLogId) {
+        fuelLogService.deleteFuelLog(fuelLogId);
+        return ResponseEntity.noContent().build();
     }
 }
